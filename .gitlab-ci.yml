@@ -31,7 +31,8 @@ semantic_release:
 
 semantic_release_stage:
   stage: release
-  only: -stage
+  only:
+    - stage
   script:
     - npx semantic-release
 
