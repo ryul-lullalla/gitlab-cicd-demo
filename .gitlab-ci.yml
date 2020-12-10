@@ -22,20 +22,6 @@ build:
     paths:
       - build
 
-semantic_release:
-  stage: release
-  only:
-    - master
-  script:
-    - npx semantic-release
-
-semantic_release_stage:
-  stage: release
-  only:
-    - stage
-  script:
-    - npx semantic-release
-
 deploy-master:
   only:
     - master
