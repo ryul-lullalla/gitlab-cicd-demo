@@ -1,0 +1,31 @@
+image: node:latest
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  only:
+    - master
+    - stage
+  stage: build
+  script:
+    - npm install
+    - CI=false BRANCH=$CI_COMMIT_REF_NAME npm run build:cicd
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - build
+
+deploy-master:
+  only:
+    - master
+  image: python:latest
+  stage: deploy
+  script:
+    - pip install awscli
+    - aws s3 sync build s3://client-cicd-demo --acl public-read
