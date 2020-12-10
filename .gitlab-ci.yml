@@ -29,3 +29,11 @@ deploy-master:
   script:
     - pip install awscli
     - aws s3 sync build s3://client-cicd-demo --acl public-read
+deploy-stage:
+  only:
+    - stage
+  image: python:latest
+  stage: deploy
+  script:
+    - pip install awscli
+    - aws s3 sync build s3://stage-cicd-demo --acl public-read
